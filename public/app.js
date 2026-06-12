@@ -245,7 +245,6 @@ function updateHeader() {
 }
 
 function renderAll() {
-  renderBanner();
   renderSidebar();
   renderContent();
   updateHeader();
