@@ -130,7 +130,7 @@ function renderContent() {
   content.innerHTML = data.phases.map((phase, phaseIndex) => {
     const stats = phaseStats(phaseIndex);
     const pct = stats.total ? Math.round((stats.done / stats.total) * 100) : 0;
-    const locked = !isAdminRoute && phaseIndex > 0 && !phaseComplete(phaseIndex - 1);
+    const locked = !isAdminRoute && phaseIndex > 0 && phaseIndex !== 6 && !phaseComplete(phaseIndex - 1);
     const tasks = phase.tasks.map((task, taskIndex) => renderTask(task, phaseIndex, taskIndex, locked)).join("");
     return `
       <article class="phase-card ${openPhases[phaseIndex] ? "open" : ""}" id="phase-${phaseIndex}">
