@@ -1,6 +1,6 @@
 # Onboarding Checkpoints System
 
-Dynamic onboarding guide with 8 phases, public progress tracking, and an admin page for editing checklist content and managing files.
+Dynamic onboarding guide with 7 phases, public progress tracking, and an admin page for editing checklist content and managing files.
 
 ## Run
 
