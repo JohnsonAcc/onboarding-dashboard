@@ -4,8 +4,18 @@ Dynamic onboarding guide with 8 phases, public progress tracking, and an admin p
 
 ## Run
 
+From the project root (`webapp`) run the server using Python or the npm script.
+
+Windows (PowerShell or Command Prompt):
+
+```powershell
+python server.py
+```
+
+Or via npm:
+
 ```bash
-python3 server.py
+npm start
 ```
 
 Open:
@@ -22,7 +32,23 @@ Email: example@accenture.com
 Password: 1234
 ```
 
-To use different credentials without editing data, start the server like this:
+To use different admin credentials without editing `data/onboarding.json`, set environment variables before starting.
+
+Windows PowerShell:
+
+```powershell
+$env:ADMIN_EMAIL = "your.email@company.com"
+$env:ADMIN_PASSWORD = "your-password"
+python server.py
+```
+
+Windows CMD:
+
+```cmd
+set ADMIN_EMAIL=your.email@company.com && set ADMIN_PASSWORD=your-password && python server.py
+```
+
+macOS / Linux (optional):
 
 ```bash
 ADMIN_EMAIL=your.email@company.com ADMIN_PASSWORD=your-password python3 server.py
