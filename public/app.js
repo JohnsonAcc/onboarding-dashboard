@@ -57,6 +57,13 @@ function phaseComplete(phaseIndex) {
   return stats.total > 0 && stats.done === stats.total;
 }
 
+function phaseLocked(phaseIndex) {
+  if (phaseIndex === 0) return false;
+  const phase = data.phases[phaseIndex];
+  const lockByProgress = phase.lockByProgress ?? true;
+  return lockByProgress && !phaseComplete(phaseIndex - 1);
+}
+
 function parseDescription(text) {
   return escapeHtml(text).replace(/&lt;t&gt;([^<]+)&lt;\/t&gt;/g, (_match, term) => {
     const tip = data.glossary?.[term] || "";
@@ -119,6 +126,7 @@ function renderSidebar() {
   html += `
     <div class="sidebar-bottom">
       ${isAdminRoute ? "" : "<button class=\"admin-nav-btn\" type=\"button\" id=\"openAdmin\">Admin</button>"}
+      ${isAdminRoute ? "" : "<button class=\"ghost-btn\" type=\"button\" id=\"helpBtn\">? Help</button>"}
       <button class="reset-btn" type="button" id="resetProgress">↺ Reset My Progress</button>
     </div>
   `;
@@ -130,7 +138,7 @@ function renderContent() {
   content.innerHTML = data.phases.map((phase, phaseIndex) => {
     const stats = phaseStats(phaseIndex);
     const pct = stats.total ? Math.round((stats.done / stats.total) * 100) : 0;
-    const locked = !isAdminRoute && phaseIndex > 0 && phaseIndex !== 6 && !phaseComplete(phaseIndex - 1);
+    const locked = !isAdminRoute && phaseLocked(phaseIndex);
     const tasks = phase.tasks.map((task, taskIndex) => renderTask(task, phaseIndex, taskIndex, locked)).join("");
     return `
       <article class="phase-card ${openPhases[phaseIndex] ? "open" : ""}" id="phase-${phaseIndex}">
@@ -190,12 +198,18 @@ function renderPhaseAdmin(phase, phaseIndex) {
       </div>
     </div>
   `).join("");
+  const lockByProgress = phase.lockByProgress ?? true;
+  const lockLabel = lockByProgress ? "Unlock always" : "Lock by progress";
   return `
     <div class="admin-panel">
       <div class="edit-grid" data-phase-edit="${phaseIndex}">
         <input value="${escapeHtml(phase.icon)}" data-field="phase.icon" aria-label="Phase icon">
         <input value="${escapeHtml(phase.title)}" data-field="phase.title" aria-label="Phase title">
         <input value="${escapeHtml(phase.desc)}" data-field="phase.desc" aria-label="Phase description">
+      </div>
+      <div class="admin-panel-meta">
+        <div class="admin-panel-meta-item">Lock mode: <strong>${lockByProgress ? "By progress" : "Always unlocked"}</strong></div>
+        <button class="small-btn ghost-btn" type="button" data-toggle-phase-lock="${phaseIndex}">${lockLabel}</button>
       </div>
       ${taskForms}
       <div class="edit-actions">
@@ -384,6 +398,23 @@ function bindEvents() {
     }
     if (target.id === "openAdmin") {
       location.href = "/admin";
+      return;
+    }
+    if (target.id === "helpBtn") {
+      const supportIndex = data.phases.findIndex(phase => phase.id === "support" || phase.title.toLowerCase().includes("support"));
+      if (supportIndex >= 0) {
+        openPhases[supportIndex] = true;
+        renderAll();
+        setTimeout(() => document.querySelector(`#phase-${supportIndex}`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+      }
+      return;
+    }
+    if (target.dataset.togglePhaseLock) {
+      const phaseIndex = Number(target.dataset.togglePhaseLock);
+      const phase = data.phases[phaseIndex];
+      phase.lockByProgress = !((phase.lockByProgress ?? true));
+      markDirty();
+      renderAll();
       return;
     }
     if (target.id === "addPhaseBtn") return addPhase();

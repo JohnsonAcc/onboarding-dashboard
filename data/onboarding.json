@@ -211,6 +211,7 @@
       "icon": "🆘",
       "title": "Phase 7: Support & Issues",
       "desc": "Know how to get help if something goes wrong during or after onboarding.",
+      "lockByProgress": false,
       "tasks": [
         {
           "name": "Raise Incident if Access Fails",
