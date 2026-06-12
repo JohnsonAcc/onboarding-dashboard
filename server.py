@@ -272,8 +272,9 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    UPLOAD_DIR.mkdir(exist_ok=True)
-    server = ThreadingHTTPServer(("localhost", PORT), Handler)
-    print(f"Onboarding app running at http://localhost:{PORT}")
-    print(f"Admin route: http://localhost:{PORT}/admin")
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    # Bind to all interfaces so Render (and other hosts) can detect the open port
+    server = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
+    print(f"Onboarding app running on port {PORT}")
+    print(f"Admin route: http://<host>:{PORT}/admin")
     server.serve_forever()
