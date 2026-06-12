@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Onboarding Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="main">
+    <section class="admin-login" id="adminLogin" hidden>
+      <form class="login-box" id="loginForm">
+        <div class="login-logo">P</div>
+        <h1>Admin Access</h1>
+        <p>Enter the approved admin credentials to manage onboarding files and checklist content.</p>
+        <label for="adminEmail">Admin email</label>
+        <input id="adminEmail" type="email" placeholder="example@accenture.com" autocomplete="username" required>
+        <label for="adminPassword">Password</label>
+        <div class="login-row">
+          <input id="adminPassword" type="password" placeholder="Password" autocomplete="current-password" required>
+          <button type="submit">Continue</button>
+        </div>
+        <div class="login-error" id="loginError"></div>
+      </form>
+    </section>
+
+    <section class="app-shell" id="appShell" hidden>
+      <div class="file-banner" id="fileBanner"></div>
+      <header class="header">
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" width="76" height="76" aria-hidden="true">
+            <circle class="ring-bg" cx="38" cy="38" r="32"></circle>
+            <circle class="ring-fg" id="ringFg" cx="38" cy="38" r="32" stroke-dasharray="201.06" stroke-dashoffset="201.06"></circle>
+          </svg>
+          <div class="progress-pct" id="pctLabel">0%</div>
+        </div>
+        <div class="header-info">
+          <div class="mode-line" id="modeLine"></div>
+          <h1 id="appTitle">Project Onboarding Dashboard</h1>
+          <div class="subtitle" id="appSubtitle">PVH · AMS Team · New Joiner Guide</div>
+          <div class="header-stats">
+            <div class="header-stat"><span class="stat-dot completed"></span>Completed <span class="stat-val" id="statDone">0</span>/<span id="statTotal">0</span></div>
+            <div class="header-stat"><span class="stat-dot in-progress"></span>In Progress <span class="stat-val" id="statProg">0</span></div>
+            <div class="header-stat"><span class="stat-dot not-started"></span>Not Started <span class="stat-val" id="statTodo">0</span></div>
+          </div>
+        </div>
+        <div class="admin-actions" id="adminActions" hidden>
+          <button class="primary-btn" id="addPhaseBtn" type="button">+ Phase</button>
+          <button class="ghost-btn" id="saveBtn" type="button">Save Changes</button>
+          <button class="danger-btn" id="logoutBtn" type="button">Logout</button>
+        </div>
+      </header>
+      <section class="content" id="content"></section>
+    </section>
+  </main>
+
+  <template id="fileUploadTemplate">
+    <label class="upload-chip">
+      + Add File
+      <input type="file">
+    </label>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "onboarding-checkpoints",
+  "version": "1.0.0",
+  "description": "Dynamic onboarding guide checkpoints system",
+  "scripts": {
+    "start": "python server.py"
+  },
+  "license": "UNLICENSED"
+}

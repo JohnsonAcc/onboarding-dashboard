@@ -1,0 +1,232 @@
+{
+  "title": "Project Onboarding Dashboard",
+  "subtitle": "PVH · AMS Team · New Joiner Guide",
+  "bannerFiles": [],
+  "glossary": {
+    "VDI": "Virtual Desktop Infrastructure - your remote office desktop hosted on a central server, accessed via Citrix.",
+    "Citrix": "A software tool that lets you securely connect to your remote VDI desktop from your laptop.",
+    "AD Groups": "Active Directory Groups - permission groups that control which apps and servers you can access.",
+    "MFA": "Multi-Factor Authentication - a security code from your phone's Authenticator app, proving it's really you.",
+    "BY": "BlueYonder - the supply chain software platform used in this project for Demand & Supply planning.",
+    "BlueYonder": "The supply chain software platform used in this project.",
+    "ServiceNow": "PVH's IT ticketing portal where you raise access requests and report incidents.",
+    "JID": "JDA ID - your login credential for BlueYonder Citrix applications.",
+    "DUO": "A secondary MFA system used specifically for BlueYonder applications.",
+    "RITM": "Request Item - a ServiceNow ticket number for access requests.",
+    "PVH Assist": "The ServiceNow self-service portal for raising requests and incidents.",
+    "BeyondTrust": "A privilege management tool that lets you run programs as Administrator on your Accenture laptop.",
+    "Office 365": "Microsoft's cloud productivity suite - used here to activate your PVH corporate account.",
+    "Zero Touch": "An automated tool in Software Center that grants temporary admin access on your Accenture laptop.",
+    "MS Teams": "Microsoft Teams - the communication platform where you add your PVH account for project collaboration."
+  },
+  "phases": [
+    {
+      "id": "activate",
+      "icon": "🔑",
+      "title": "Phase 1: PVH Account Activation",
+      "desc": "Activate your PVH corporate account, set up security, and change your password. This must be done first.",
+      "tasks": [
+        {
+          "name": "Activate PVH Account via Office 365",
+          "desc": "Open an Incognito/Private browser -> search '<t>Office 365</t> login' -> go to office.com -> click Sign In -> enter your PVH email -> enter the password received in your Accenture onboarding mail -> sign in at the PVHCORP page.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Setup MFA for PVH",
+          "desc": "After first sign-in, install Microsoft Authenticator on your phone -> click Next -> scan the QR code -> approve the notification -> click Done. Alternate: https://aka.ms/mfasetup",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Change PVH Password Immediately",
+          "desc": "Open Incognito browser -> go to https://mysignins.microsoft.com/security-info -> click your user icon -> select Change Password -> enter old and new password -> Submit.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Add PVH Account to MS Teams",
+          "desc": "Open <t>MS Teams</t> -> click your profile picture -> select Add another account -> enter your PVH email and new password -> enter <t>MFA</t> code from Authenticator.",
+          "owner": "User",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "citrix_vdi",
+      "icon": "🖥️",
+      "title": "Phase 2: Citrix & VDI Setup",
+      "desc": "Install Citrix Workspace, connect to the PVH remote environment, and launch your VDI desktop.",
+      "tasks": [
+        {
+          "name": "Install Citrix Workspace",
+          "desc": "Download <t>Citrix</t> Workspace from citrix.com/downloads -> run the installer as administrator. In the <t>BeyondTrust</t> popup, select Accenture Business -> click Yes. Do not select add-ons.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Enable Admin Access if Needed",
+          "desc": "If admin access is blocked, open Software Center -> install '<t>Zero Touch</t> Solutions - Avecto Admin Access Automation' -> restart system.",
+          "owner": "User / IT",
+          "files": []
+        },
+        {
+          "name": "Configure Citrix URL",
+          "desc": "Open <t>Citrix</t> Workspace -> paste URL: https://remote-na1.pvh.com. Paste the link, not your email.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Login to VDI",
+          "desc": "Enter your PVH User ID and password in the <t>Citrix</t> login screen. Under Desktops, confirm the <t>VDI</t> option appears.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Complete MFA Verification",
+          "desc": "Enter the 6-digit code from Microsoft Authenticator when prompted.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Launch & Verify VDI Desktop",
+          "desc": "Verify the remote desktop loads. Always disconnect properly by clicking X at top center -> OK.",
+          "owner": "User",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "icon": "🔐",
+      "title": "Phase 3: Application Access Request",
+      "desc": "Create your BlueYonder account and set up additional security for supply chain applications.",
+      "tasks": [
+        {
+          "name": "BlueYonder Account Setup",
+          "desc": "Go to https://success.blueyonder.com -> enter your PVH email -> click Forgot Password -> check email for reset link -> set new password.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Raise Citrix Access Request",
+          "desc": "Raise a <t>BY</t> case in the BY Success portal to get <t>Citrix</t> access credentials. Check your email for username and password.",
+          "owner": "User / Manager",
+          "files": []
+        },
+        {
+          "name": "DUO / MFA Enrollment",
+          "desc": "Complete <t>DUO</t> enrollment using the DUO Security email. This is a second <t>MFA</t> layer for <t>BY</t> Citrix apps.",
+          "owner": "User",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "apps",
+      "icon": "📱",
+      "title": "Phase 4: Access Validation",
+      "desc": "Access project applications, validate they work, and request any extra permissions needed.",
+      "tasks": [
+        {
+          "name": "Access Demand & Supply Citrix",
+          "desc": "Login to the BY Citrix portal using your <t>JID</t> credentials. Verify each app icon opens correctly.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Open & Validate Applications",
+          "desc": "Click each application inside Citrix, including Control-M, SQL Developer, WinSCP, and Putty, to confirm they launch without errors.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Raise Application Access Requests",
+          "desc": "Go to <t>PVH Assist</t> -> Request Something -> Access Requests -> select app -> provide justification.",
+          "owner": "User / Manager",
+          "files": []
+        },
+        {
+          "name": "Get Added to AD Groups",
+          "desc": "Request to be added to required <t>AD Groups</t>. Best practice is to mimic access of an existing team member.",
+          "owner": "IT",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "icon": "🛠️",
+      "title": "Phase 5: Tools & Database Access",
+      "desc": "Configure development tools and database connections needed for day-to-day support work.",
+      "tasks": [
+        {
+          "name": "Access Tools",
+          "desc": "Launch SQL Developer, WinSCP, and Putty from <t>VDI</t>. Use server credentials from the access sheet.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Configure Database Connections",
+          "desc": "Open SQL Developer -> click + -> enter host, port, username, and password -> click Test -> save if successful.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Validate Tool Access",
+          "desc": "Test each tool connection and confirm you can connect to required servers across AMER, APAC, and EMEA.",
+          "owner": "User",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "validate",
+      "icon": "✅",
+      "title": "Phase 6: End to End Checklist",
+      "desc": "Perform end-to-end testing before starting project work.",
+      "tasks": [
+        {
+          "name": "Verify VDI + Apps + DB Access",
+          "desc": "Perform a full check: <t>VDI</t> login -> open apps -> connect to databases -> confirm everything works end-to-end.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Perform Final Checks",
+          "desc": "Verify access to BY UI links, Tivoli, PVH Remote Desktop App, and <t>ServiceNow</t> portal.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Disconnect VDI Properly",
+          "desc": "Click the X at top-center of <t>VDI</t> screen -> click OK to disconnect. Your session continues remotely.",
+          "owner": "User",
+          "files": []
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "icon": "🆘",
+      "title": "Phase 7: Support & Issues",
+      "desc": "Know how to get help if something goes wrong during or after onboarding.",
+      "tasks": [
+        {
+          "name": "Raise Incident if Access Fails",
+          "desc": "Go to <t>PVH Assist</t> -> Report Incident -> describe issue with screenshots -> Submit. Reference the <t>RITM</t> number if related to a request.",
+          "owner": "User",
+          "files": []
+        },
+        {
+          "name": "Troubleshooting Common Issues",
+          "desc": "For <t>VDI</t> or password issues, use PVH Assist. For Accenture laptop admin issues, raise an Accenture Support incident.",
+          "owner": "User / IT",
+          "files": []
+        }
+      ]
+    }
+  ],
+  "adminEmail": "example@accenture.com",
+  "adminPassword": "1234"
+}
