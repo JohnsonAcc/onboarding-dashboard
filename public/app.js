@@ -250,6 +250,60 @@ function renderAll() {
   updateHeader();
 }
 
+function getProgressSummary() {
+  const total = data.phases.reduce((sum, phase) => sum + phase.tasks.length, 0);
+  let done = 0;
+  let inProgress = 0;
+  data.phases.forEach((phase, phaseIndex) => {
+    phase.tasks.forEach((_task, taskIndex) => {
+      const state = taskState(phaseIndex, taskIndex);
+      if (state === 2) done += 1;
+      if (state === 1) inProgress += 1;
+    });
+  });
+  const todo = total - done - inProgress;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const phaseLines = data.phases.map((phase, phaseIndex) => {
+    const stats = phaseStats(phaseIndex);
+    return `${phase.title}: ${stats.done}/${stats.total}`;
+  });
+  return [
+    `${data.title}`,
+    `${data.subtitle}`,
+    "",
+    `Progress: ${done}/${total} completed (${pct}%)`,
+    `In progress: ${inProgress}`,
+    `Not started: ${todo}`,
+    "",
+    ...phaseLines,
+    "",
+    `View the dashboard: ${location.origin}${location.pathname}`
+  ].join("\n");
+}
+
+async function shareProgress() {
+  const summary = getProgressSummary();
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: `${data.title} Progress`,
+        text: summary,
+        url: location.href
+      });
+      toast("Progress shared successfully.");
+      return;
+    }
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(summary);
+      toast("Progress copied to clipboard.");
+      return;
+    }
+    window.prompt("Copy your progress summary", summary);
+  } catch (error) {
+    toast(error.message || "Unable to share progress.");
+  }
+}
+
 function markDirty() {
   dirty = true;
   const saveBtn = $("#saveBtn");
@@ -395,6 +449,10 @@ function bindEvents() {
       }
       return;
     }
+    if (target.id === "shareProgressBtn") {
+      await shareProgress();
+      return;
+    }
     if (target.id === "openAdmin") {
       location.href = "/admin";
       return;
@@ -499,6 +557,7 @@ async function startApp() {
   } else {
     $("#adminLogin").hidden = true;
     $("#appShell").hidden = false;
+    $("#publicActions").hidden = false;
   }
   renderAll();
 }
